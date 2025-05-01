@@ -69,6 +69,12 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${inputs.properties.archivesName}"}
 	}
+
+	from {
+		configurations.runtimeClasspath.findAll {
+			it.name.endsWith("jar") && !it.name.contains("fabric")
+		}.collect { zipTree(it) }
+	}
 }
 
 // configure the maven publication
