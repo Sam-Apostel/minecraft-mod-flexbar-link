@@ -70,9 +70,11 @@ jar {
 		rename { "${it}_${inputs.properties.archivesName}"}
 	}
 
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
 	from {
 		configurations.runtimeClasspath.findAll {
-			it.name.endsWith("jar") && !it.name.contains("fabric")
+			it.name.contains("Java-WebSocket")
 		}.collect { zipTree(it) }
 	}
 }
